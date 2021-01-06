@@ -1,5 +1,6 @@
 # R-Digital-Hillslope-Position
 ### Automated digital hillslope position classification algorithm - Miller and Schaetzl (2015)
+#### Consult the Wiki for the tutorial - An Rmarkdown file is also available
 
 Classification of hillslope position has a long history in soil geomorphology. However, its roots in tacit field knowledge has prevented its use in GIS. The model provided here has been calibrated and validated on soil scientists’ observations in the field. The resulting maps of hillslope position represent base maps that can be used to (1) improve research on toposequences by providing explicit definitions of each hillslope element’s location, (2) facilitate the disaggregation of soils currently mapped as complexes, and (3) identify map unit inclusions that exist due to subtle topographic variation. The base maps developed by the model can also help identify areas of possible mismapping, especially where soil boundaries cross topographic breaks. This information can enable the mapper to redefine many existing soil map unit boundaries, placing them more correctly at locations where defendable landscape breaks exist.
 
@@ -23,7 +24,7 @@ The hillslope position grid produced by this classification tool uses the follow
 
 Landscape analysis of hillslope position will not result in a full sequence of positions for all slopes. Instead, each grid cell is classified by its contextual shape meeting specified definitions. In this way, this hillslope position classification is identifying zones of surficial processes as influenced by morphology.
 
-This fully automated tool uses the classification breaks established by calibration to soil scientists' use of hillslope position in the field. If the user wishes to make the classification by different breaks, `refer to line ???` for manual specification of breaks. Slope gradient is divided by two breaks to create low(-1; <1.4<sup>o</sup>), medium(0; 1.4<sup>o</sup> to 2.9<sup>o</sup>), and high(1; > 2.9<sup>o</sup>) classes. Profile curvature and relative elevation are divided by one break to create low(-1; <0) and high(1; >0) classes. Ths.
+This fully automated tool uses the classification breaks established by calibration to soil scientists' use of hillslope position in the field. If the user wishes to make the classification by different breaks, (*refer to .RMD line 130) for manual specification of breaks. Slope gradient is divided by two breaks to create low(-1; <1.4<sup>o</sup>), medium(0; 1.4<sup>o</sup> to 2.9<sup>o</sup>), and high(1; > 2.9<sup>o</sup>) classes. Profile curvature and relative elevation are divided by one break to create low(-1; <0) and high(1; >0) classes. Ths.
 
 
 ## References
