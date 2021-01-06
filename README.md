@@ -40,7 +40,11 @@ Development of the hillslope position classification tool is documented in the f
 
 Miller, B.A. and R.J. Schaetzl, 2015. Digital classification of hillslope position. Soil Science Society of America Journal 79(1):132-145. doi:10.2136/sssaj2014.07.0287.  
 Miller, B.A., 2014. Semantic calibration of digital terrain analysis. Cartography and Geographic Information Science Journal 41:166-176. doi:10.1080/15230406.2014.883488.  
-Miller, B.A. 2013. Incorporating tacit knowledge of soil-landscape relationships for digital soil and landscape mapping applications. Dissertation, Department of Geography, Michigan State University, USA.  
+Miller, B.A. 2013. Incorporating tacit knowledge of soil-landscape relationships for digital soil and landscape mapping applications. Dissertation, Department of Geography, Michigan State University, USA. 
+
+### Stay tuned for a floodplain classificaton update (class 6) and machine-learning/big data calibration for DHP 2.0.
+![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/
 
 ![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/DHP_C5_3D.jpg?raw=true)
+### DHP 2.0
 ![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/burroak3.gif?raw=true)
