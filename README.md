@@ -12,4 +12,4 @@ Miller, B.A., 2014. Semantic calibration of digital terrain analysis. Cartograph
 
 Miller, B.A. 2013. Incorporating tacit knowledge of soil-landscape relationships for digital soil and landscape mapping applications. Dissertation, Department of Geography, Michigan State University, USA.
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![]https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/burroak3.gif
