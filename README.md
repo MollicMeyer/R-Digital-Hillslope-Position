@@ -9,7 +9,7 @@ Classification of hillslope position has a long history in soil geomorphology. H
 
 ## Summary
 
-Ruhe and Walker (1968) defined and identified five hillslope profile positions for geomorphically describing landscapes, which have been incorporated into methods utilized by the USDA-NRCS (Wysocki et al., 2000; Schoeneberger et al., 2012). This ArcGIS tool takes the terrain parameters of slope gradient, profile curvature, and relative elevation to make determinations of hillslope position. Please note that hillslope position is highly sensitive to the analysis scale used for the respective parameters. Based on calibration to soil scientists' use of hillslope position in the field, the following parameter analysis scales are recommended:
+Ruhe and Walker (1968) defined and identified five hillslope profile positions for geomorphically describing landscapes, which have been incorporated into methods utilized by the USDA-NRCS (Wysocki et al., 2000; Schoeneberger et al., 2012). This R script takes the terrain parameters of slope gradient, profile curvature, and relative elevation to make determinations of hillslope position. Please note that hillslope position is highly sensitive to the analysis scale used for the respective parameters. Based on calibration to soil scientists' use of hillslope position in the field, the following parameter analysis scales are recommended:
 
 Slope gradient = 9m  
 Profile curvature = 63m  
