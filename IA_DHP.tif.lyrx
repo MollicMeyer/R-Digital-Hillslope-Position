@@ -1,0 +1,195 @@
+{
+  "type" : "CIMLayerDocument",
+  "version" : "2.3.0",
+  "build" : 15769,
+  "layers" : [
+    "CIMPATH=map/ia_dhp_tif.xml"
+  ],
+  "layerDefinitions" : [
+    {
+      "type" : "CIMRasterLayer",
+      "name" : "IA_DHP.tif",
+      "uRI" : "CIMPATH=map/ia_dhp_tif.xml",
+      "sourceModifiedTime" : {
+        "type" : "TimeInstant",
+        "start" : 978307200000
+      },
+      "metadataURI" : "CIMPATH=Metadata/b5e233724ac88b172373e2d1efcf283d.xml",
+      "useSourceMetadata" : true,
+      "layerElevation" : {
+        "type" : "CIMLayerElevationSurface",
+        "mapElevationID" : "{327CA9CA-E270-4EE5-B52A-3945C89BF4E2}"
+      },
+      "expanded" : true,
+      "layerType" : "Operational",
+      "showLegends" : true,
+      "visibility" : true,
+      "displayCacheType" : "Permanent",
+      "maxDisplayCacheAge" : 5,
+      "showPopups" : true,
+      "serviceLayerID" : -1,
+      "refreshRate" : -1,
+      "refreshRateUnit" : "esriTimeUnitsSeconds",
+      "dataConnection" : {
+        "type" : "CIMStandardDataConnection",
+        "workspaceConnectionString" : "DATABASE=.",
+        "workspaceFactory" : "Raster",
+        "dataset" : "IA_DHP.tif",
+        "datasetType" : "esriDTAny"
+      },
+      "colorizer" : {
+        "type" : "CIMRasterUniqueValueColorizer",
+        "resamplingType" : "NearestNeighbor",
+        "noDataColor" : {
+          "type" : "CIMRGBColor",
+          "values" : [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        "defaultColor" : {
+          "type" : "CIMRGBColor",
+          "values" : [
+            3,
+            132,
+            53,
+            100
+          ]
+        },
+        "fieldName" : "Value",
+        "groups" : [
+          {
+            "type" : "CIMRasterUniqueValueGroup",
+            "classes" : [
+              {
+                "type" : "CIMRasterUniqueValueClass",
+                "values" : [
+                  "1"
+                ],
+                "label" : "Summit",
+                "color" : {
+                  "type" : "CIMHSVColor",
+                  "values" : [
+                    360,
+                    72,
+                    53,
+                    100
+                  ]
+                }
+              },
+              {
+                "type" : "CIMRasterUniqueValueClass",
+                "values" : [
+                  "2"
+                ],
+                "label" : "Shoulder",
+                "color" : {
+                  "type" : "CIMHSVColor",
+                  "values" : [
+                    36,
+                    95,
+                    94,
+                    100
+                  ]
+                }
+              },
+              {
+                "type" : "CIMRasterUniqueValueClass",
+                "values" : [
+                  "3"
+                ],
+                "label" : "Backslope",
+                "color" : {
+                  "type" : "CIMHSVColor",
+                  "values" : [
+                    60,
+                    25,
+                    100,
+                    100
+                  ]
+                }
+              },
+              {
+                "type" : "CIMRasterUniqueValueClass",
+                "values" : [
+                  "4"
+                ],
+                "label" : "Footslope",
+                "color" : {
+                  "type" : "CIMRGBColor",
+                  "values" : [
+                    0,
+                    132,
+                    168,
+                    100
+                  ]
+                }
+              },
+              {
+                "type" : "CIMRasterUniqueValueClass",
+                "values" : [
+                  "5"
+                ],
+                "label" : "Toeslope",
+                "color" : {
+                  "type" : "CIMHSVColor",
+                  "values" : [
+                    245,
+                    74,
+                    48,
+                    100
+                  ]
+                }
+              }
+            ],
+            "heading" : "Hillslope Position"
+          }
+        ]
+      },
+      "attributeTable" : {
+        "type" : "CIMRasterTable",
+        "displayField" : "Value",
+        "editable" : true
+      },
+      "timeDisplayDefinition" : {
+        "type" : "CIMTimeDisplayDefinition",
+        "timeInterval" : 0,
+        "timeIntervalUnits" : "esriTimeUnitsHours",
+        "timeOffsetUnits" : "esriTimeUnitsYears"
+      },
+      "timeDefinition" : {
+        "type" : "CIMTimeDataDefinition"
+      }
+    }
+  ],
+  "binaryReferences" : [
+    {
+      "type" : "CIMBinaryReference",
+      "uRI" : "CIMPATH=Metadata/b5e233724ac88b172373e2d1efcf283d.xml",
+      "data" : "<?xml version=\"1.0\"?>\r\n<metadata xml:lang=\"en\"><Esri><CreaDate>20190716</CreaDate><CreaTime>14451800</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce></Esri><dataIdInfo><idCitation><resTitle>IA_DHP.tif</resTitle></idCitation><idAbs></idAbs><idCredit></idCredit><idPurp></idPurp><resConst><Consts><useLimit></useLimit></Consts></resConst></dataIdInfo></metadata>\r\n"
+    }
+  ],
+  "elevationSurfaces" : [
+    {
+      "type" : "CIMMapElevationSurface",
+      "elevationMode" : "BaseGlobeSurface",
+      "name" : "Ground",
+      "verticalExaggeration" : 1,
+      "mapElevationID" : "{327CA9CA-E270-4EE5-B52A-3945C89BF4E2}",
+      "color" : {
+        "type" : "CIMRGBColor",
+        "values" : [
+          255,
+          255,
+          255,
+          100
+        ]
+      },
+      "surfaceTINShadingMode" : "Smooth",
+      "visibility" : true,
+      "expanded" : true
+    }
+  ]
+}
