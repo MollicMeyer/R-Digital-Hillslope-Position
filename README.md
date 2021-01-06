@@ -11,3 +11,5 @@ Miller, B.A. and R.J. Schaetzl, 2015. Digital classification of hillslope positi
 Miller, B.A., 2014. Semantic calibration of digital terrain analysis. Cartography and Geographic Information Science Journal 41:166-176. doi:10.1080/15230406.2014.883488.
 
 Miller, B.A. 2013. Incorporating tacit knowledge of soil-landscape relationships for digital soil and landscape mapping applications. Dissertation, Department of Geography, Michigan State University, USA.
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
