@@ -23,7 +23,7 @@ The hillslope position grid produced by this classification tool uses the follow
 
 Landscape analysis of hillslope position will not result in a full sequence of positions for all slopes. Instead, each grid cell is classified by its contextual shape meeting specified definitions. In this way, this hillslope position classification is identifying zones of surficial processes as influenced by morphology.
 
-This fully automated tool uses the classification breaks established by calibration to soil scientists' use of hillslope position in the field. If the user wishes to make the classification by different breaks, `refer to line ???` for manual specification of breaks. Slope gradient is divided by two breaks to create low(-1; <1.4<sup>0</sup>), medium(0; 1.4 <sup>0</sup> to 2.9 <sup>0</sup>), and high(1; > 2.9 <sup>0</sup>) classes. Profile curvature and relative elevation are divided by one break to create low(-1; <0) and high(1; >0) classes. Ths.
+This fully automated tool uses the classification breaks established by calibration to soil scientists' use of hillslope position in the field. If the user wishes to make the classification by different breaks, `refer to line ???` for manual specification of breaks. Slope gradient is divided by two breaks to create low(-1; <1.4<sup>o</sup>), medium(0; 1.4<sup>o</sup> to 2.9<sup>o</sup>), and high(1; > 2.9<sup>o</sup>) classes. Profile curvature and relative elevation are divided by one break to create low(-1; <0) and high(1; >0) classes. Ths.
 
 
 ## References
