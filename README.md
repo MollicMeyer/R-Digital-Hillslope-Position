@@ -9,17 +9,17 @@ Classification of hillslope position has a long history in soil geomorphology. H
 
 Ruhe and Walker (1968) defined and identified five hillslope profile positions for geomorphically describing landscapes, which have been incorporated into methods utilized by the USDA-NRCS (Wysocki et al., 2000; Schoeneberger et al., 2012). This ArcGIS tool takes the terrain parameters of slope gradient, profile curvature, and relative elevation to make determinations of hillslope position. Please note that hillslope position is highly sensitive to the analysis scale used for the respective parameters. Based on calibration to soil scientists' use of hillslope position in the field, the following parameter analysis scales are recommended:
 
-Slope gradient = 9m
-Profile curvature = 63m
-Relative elevation = 135m
+Slope gradient = 9m  
+Profile curvature = 63m  
+Relative elevation = 135m  
 
 The hillslope position grid produced by this classification tool uses the following codes:
 
-1 = summit
-2 = shoulder
-3 = backslope
-4 = footslope
-5 = toeslope
+1 = summit  
+2 = shoulder  
+3 = backslope  
+4 = footslope  
+5 = toeslope  
 
 Landscape analysis of hillslope position will not result in a full sequence of positions for all slopes. Instead, each grid cell is classified by its contextual shape meeting specified definitions. In this way, this hillslope position classification is identifying zones of surficial processes as influenced by morphology.
 
