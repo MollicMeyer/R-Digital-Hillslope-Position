@@ -1,0 +1,168 @@
+---
+title: "Automated Digital Hillslope Position"
+author: "Meyer Bohn"
+date: "1/6/2021"
+output: html_document
+---
+### Getting Started ###
+SAGA GIS (Conrad et al., 2015) is required. Please install at https://sourceforge.net/projects/saga-gis/  
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(include = FALSE, warning = FALSE)
+```
+
+Install and load required packages  
+```{r libraries}
+libs <- c("stringr", "raster", "rgdal", "RSAGA", "foreign", "data.table")
+
+#optional install
+install.packages(libs)
+#load
+lapply(libs, require, character.only = TRUE)
+```
+
+Set up R project and working directory with your input raster (must be 3-m resoultion)
+```{r inputs and directories}
+#Designate the file path to your raster input file
+rname <- "./INPUTRASTER.tif"
+gname <- tools::file_path_sans_ext(basename(rname))
+
+#Create outputs folder in working directory
+o_folder <- dir.create(paste(getwd(), "/outputs", sep =""))
+o_name <- paste(getwd(), "/outputs", sep ="")
+```
+Interface R with SAGA. Usually the `rsaga.env()` can find the `saga_cmd.exe`; if not, specify the path e.g. `work_env <- rsaga.env(path = "F:\Program Files (x86)\saga-5.0.0_x64")` 
+```{r load SAGA cmd}
+work_env <- rsaga.env()
+work_env
+
+#There are many more tools in SAGA than those used here. Use the below functions to find inspect libraries, modules, and usage.
+rsaga.get.libraries(path = work_env$modules)
+
+rsaga.get.modules(libs = "io_gdal", env = work_env)
+
+rsaga.get.usage(lib = "io_gdal", module = "Export GeoTIFF", env = work_env)
+
+rsaga.get.modules(libs = "ta_morphometry", env = work_env)
+
+rsaga.get.usage(lib = "ta_morphometry", module = "Morphometric Features", env = work_env)
+```
+## Terrain Derivative Generation in SAGA
+
+SAGA requires proprietary SGRD files to operate. This code converts your input raster to a `.sgrd` file and calculates the slope and profile curvature derivatives at the specified analysis scales using `morphometric features` - a method of Multi-scale quadratic Parameterisation developed by Wood (1996).  
+
+### Warning - SAGA will use 100% of CPU and significant RAM in parallel - the size of the input Raster and your computing limitations will impact speed and feasibility of this process  
+```{r SGRD and Morphometric Features}
+#Create SGRD output name
+sname <- paste(o_name, '/', gname, '.sgrd', sep='')
+#import raster into SGRD fomrat
+rsaga.import.gdal(rname, sname, env = work_env)  
+
+#Calculate slope at 9-m analysis scale (3X3m cells)
+rsaga.geoprocessor(lib = "ta_morphometry", module = "Morphometric Features", param = list(DEM = sname, SLOPE = paste(o_name, 'slp_009.sgrd', sep = '/'), SIZE = 3))
+
+#Calculate profile curvature at 63-m analysis scale (21X3m cells)
+rsaga.geoprocessor(lib = "ta_morphometry", module = "Morphometric Features", param = list(DEM = sname, PROFC = paste(o_name, 'prc_063.sgrd', sep = '/'), SIZE = 21))
+
+```
+Export the new rasters to GeoTIFF format.  
+```{r export sgrd to tif - prc & slp}
+#Define import export names
+prc.s <- paste(o_name,  'prc_063.sgrd', sep = '/')
+slp.s <- paste(o_name,  'slp_009.sgrd', sep = '/')
+prc.t <- paste(o_name,  'prc_063.tif', sep = '/')
+slp.t <- paste(o_name,  'slp_009.tif', sep = '/')
+
+#export with GDAL
+rsaga.geoprocessor(lib = "io_gdal", module = "Export GeoTIFF",param = list(GRIDS = prc.s, FILE = prc.t))
+rsaga.geoprocessor(lib = "io_gdal", module = "Export GeoTIFF",param = list(GRIDS = slp.s, FILE = slp.t))
+```
+Relative elevation requires focal statistics. Besides DHP, this code can be modified to create rel at many differnt analysis scales. The case is the same for Profc and Slope.  
+```{r relative elevation SAGA}
+#Min grid at 135 analysis scale (45x3m cells)
+rsaga.geoprocessor(lib = "statistics_grid", module = "Focal Statistics", param = list(GRID = sname, MIN = paste(o_name, 'min_135.sgrd', sep = '/'), KERNEL_TYPE= "Circle", KERNEL_RADIUS = 45))
+
+#Max grid at 135 analysis scale (45x3m cells)
+rsaga.geoprocessor(lib = "statistics_grid", module = "Focal Statistics", param = list(GRID = sname, MAX = paste(o_name, 'max_135.sgrd', sep = '/'), KERNEL_TYPE= "Circle", KERNEL_RADIUS = 45))
+
+#import export sgrd and tif names
+min.s <- paste(o_name,  'min_135.sgrd', sep = '/')
+max.s <- paste(o_name,  'max_135.sgrd', sep = '/')
+min.t <- paste(o_name,  'min_135.tif', sep = '/')
+max.t <- paste(o_name,  'max_135.tif', sep = '/')
+
+#export to tif like earlier
+rsaga.geoprocessor(lib = "io_gdal", module = "Export GeoTIFF",param = list(GRIDS = min.s, FILE = min.t))
+rsaga.geoprocessor(lib = "io_gdal", module = "Export GeoTIFF",param = list(GRIDS = max.s, FILE = max.t))
+```
+Once the derivatives are created and exported, we will load the inputs and create the function with `overlay()` which is think is slightly faster than the basic raster algebra.  
+
+```{r relative elevation function}
+#load original raster
+ras <- raster(rname)
+
+#load min max rasters
+minras <- raster(min.t)
+maxras <- raster(max.t)
+
+#function for overlay
+rel.elevation <- function(ras, minras, maxras){
+  return (ras - ((minras + maxras) - ras))
+}
+          
+rel <- overlay(ras, minras, maxras, fun=rel.elevation)
+```
+## Putting it all together - Classification
+This portion reclassifies the terrain derivatives into the classes specified by the DHP algorithm, i.e. breaks most agreed upon by field pedologists. This would be a good place to experiment with different breaks, as the phenomenon scale of dominant pedogenic hillslope processes undoubtedly changes accordingly with different soil-forming environments.  
+
+This function works like the Con tool in ArcGIS. 
+```{r Con}
+#Simple conditional for breaks
+Con <- function(condition, trueValue,falseValue){
+  return (condition*trueValue+(!condition)*falseValue)
+}
+
+#define rasters
+slpras <- raster(slp.t)
+prcras <- raster(prc.t)
+relras <- rel
+
+#2 classes 1 break - simple Con
+prc_cls <- Con(prcras < 0, -1, 1)
+rel_cls <- Con(relras > 0, 1, -1)
+
+#Slope class requires 3 classes and 2 breaks - we can nest multiple Cons to achieve this
+slp_cls <- Con(slpras < 1.4,-1, Con(slpras >= 1.4 & slpras <= 2.9, 0, 1))
+```
+Next, we create a function to classify all 5 hillslope positions.  
+
+```{r DHP}
+#Conditional statement function for DHP classification
+DHPtree <- function(slpras, prcras, relras){
+  Con(slp_cls == 1, 3, Con(slp_cls == 0, Con(prc_cls == 1, 2, 4), Con(rel_cls ==1, 1, 5)))
+}
+
+#Run Classification
+DHP <- DHPtree(slpras, prcras, relras)
+```
+Finally, we need to create a factor-level attribute table for the DHP raster. Then we can export the raster to a GeoTIFF and attribute table as a csv file. 
+```{r export}
+#creates factors from class values and raster attribute table (RAT) - ratify
+DHP <- as.factor(DHP)
+DHP <- ratify(DHP, count = TRUE)
+
+#Assigns character codes and hillslope positions
+rat <- levels(DHP)[[1]]
+rat$DHP_code <- (c("1","2","3","4","5"))
+rat$DHP <- c("Summit", "Shoulder", "Backslope", "Footslope", "Toeslope")
+levels(DHP) <- rat
+
+#export raster to outputs folder
+writeRaster(DHP, paste(o_name, "DHP.tif", sep = '/'), format = "GTiff")
+
+#create table to join in ArcGIS
+rat.csv <- as.data.table(rat)
+write.csv(rat.csv,paste(o_name, "DHP.tif.vat.csv", sep = '/'), TRUE)
+```
+Thats it. Be sure to download the customized DHP.lyr (ArcMap) and DHP.lyrx (ArcGIS Pro) layer files from the repository for custom symbology. Stay tuned for a floodplain classificaton update (class 6) and machine-learning/big data calibration for DHP 2.0.
+
+### "Every valley shall be raised up, every mountain and hill made low; the rough ground shall become level, the rugged places a plain" - Jesus on hillslope evolution
