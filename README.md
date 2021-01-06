@@ -43,8 +43,8 @@ Miller, B.A., 2014. Semantic calibration of digital terrain analysis. Cartograph
 Miller, B.A. 2013. Incorporating tacit knowledge of soil-landscape relationships for digital soil and landscape mapping applications. Dissertation, Department of Geography, Michigan State University, USA. 
 
 ### Stay tuned for a floodplain classificaton update (class 6) and machine-learning/big data calibration for DHP 2.0.
-![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/
-
+![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/IADHPFP_Ames.jpg?raw=true)
+### DHP with floodplain classification
 ![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/DHP_C5_3D.jpg?raw=true)
 ### DHP 2.0
 ![alt text](https://github.com/MollicMeyer/R-Digital-Hillslope-Position/blob/main/burroak3.gif?raw=true)
